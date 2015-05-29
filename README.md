@@ -1,4 +1,4 @@
-# MIRateViewController
+# MIRateAppController
 Simple iOS class to engage users to rate an application
 
 # Simplest usage:
