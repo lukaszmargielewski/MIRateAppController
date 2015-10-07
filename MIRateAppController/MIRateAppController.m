@@ -9,7 +9,7 @@
 #import "MIRateAppController.h"
 #import <StoreKit/StoreKit.h>
 
-#define APPSTORE_ALERT_TAG 876
+#define APP_STORE_ALERT_TAG 876
 #define RESET_ALERT_TAG 877
 
 #define kTimeUsageTotalNeededForNextReviewPrompt_key    @"min_time_appstore"
@@ -77,19 +77,16 @@ static MIRateAppController *shared = nil;
 -(id)initWithAppID:(NSString *)appId minimumTimeUsage:(NSTimeInterval)minimumTimeUsage{
 
 
+    NSAssert(appId && appId.length, @"AppStore application ID not specified");
+    
     self = [super init];
     
     if (self) {
         
         _appstoreID = appId;
-#ifdef APPSTORE
-        NSAssert(_appstoreID != nil, @"AppStoreApplicationID not present in Info.plist file");
-#endif
         
         NSDictionary *infoDict = [[NSBundle mainBundle] infoDictionary];
         _applicationName    = infoDict[@"CFBundleDisplayName"];
-        
-        NSAssert1(_appstoreID && _appstoreID.length, @"AppStoreApplicationID not specified in applicaiton info dictionary:", infoDict);
         
         self.minimumTimeUsage = minimumTimeUsage;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationWillResignActive:) name:UIApplicationWillResignActiveNotification object:[UIApplication sharedApplication]];
@@ -206,7 +203,7 @@ static MIRateAppController *shared = nil;
                 NSString *message = MILocalizedString(@"Hvis du vil, kan du hjælpe ved at give din bedømmelse af appen...", @"");
                 
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:MILocalizedString(@"Jeg vil gerne hjælpe", @"") otherButtonTitles:MILocalizedString(@"Nej tak", @""), MILocalizedString(@"Senere", @""), nil];
-                alertView.tag = APPSTORE_ALERT_TAG;
+                alertView.tag = APP_STORE_ALERT_TAG;
                 [alertView show];
                 [self pauseCheck];
                 
@@ -220,7 +217,7 @@ static MIRateAppController *shared = nil;
 -(void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
     
     switch (alertView.tag) {
-        case APPSTORE_ALERT_TAG:
+        case APP_STORE_ALERT_TAG:
         {
             NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
             
