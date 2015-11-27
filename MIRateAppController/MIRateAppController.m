@@ -198,9 +198,9 @@ static MIRateAppController *shared = nil;
         
             if (total_time_active >= usageTimeTotalForNextReviewPrompt) {
                 
-                NSString *titleFormat = MILocalizedString(@"Vi håber, du har glæde af %@!", @"");
+                NSString *titleFormat = MILocalizedString(@"Tak fordi du bruger %@!", @"");
                 NSString *title = [NSString stringWithFormat:titleFormat, _applicationName];
-                NSString *message = MILocalizedString(@"Hvis du vil, kan du hjælpe ved at give din bedømmelse af appen...", @"");
+                NSString *message = MILocalizedString(@"Vi håber, at appen hjælper dig i din hverdag til at indfri dine målsætninger og opnå sunde livsstilsvaner. Ved at give appen en god rating i App Store, hjælper du os til at arbejde videre på at forbedre programmet og oplevelse endnu mere.", @"");
                 
                 UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:title message:message delegate:self cancelButtonTitle:MILocalizedString(@"Jeg vil gerne hjælpe", @"") otherButtonTitles:MILocalizedString(@"Nej tak", @""), MILocalizedString(@"Senere", @""), nil];
                 alertView.tag = APP_STORE_ALERT_TAG;
